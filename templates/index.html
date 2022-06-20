@@ -1,0 +1,46 @@
+{% extends 'skeleton.html' %}
+
+{% block head %}
+<title>TO DO LIST</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>TO DO LIST</h1>
+
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Time Added</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.data_created.date() }}</td>
+                <td>{{ task.priority }}</td>
+                <td>
+                    <input type="checkbox">
+                </td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href="/update/{{task.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content">
+        <select name="priority" id="priority">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <input type="submit" value="Add Task">
+    </form>
+</div>
+{% endblock %}
